@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "floc"
+version = "0.1.0"
+description = "A floc simulator wrapper for Python over a Go implementation"
+license = "MIT"
+authors = ["Pablo Aguilar <pablo.aguilar@fatec.sp.gov.br>"]
+
+readme = "README.md"
+documentation = "https://floc.readthedocs.io"
+homepage = "https://github.com/thepabloaguilar/floc"
+repository = "https://github.com/thepabloaguilar/floc"
+
+keywords = [
+  "floc",
+  "machine learning",
+]
+
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3 :: Only",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+include = ["CHANGELOG.md"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0"
+pytest-cov = "^2.11.1"
+
+mypy = "^0.812"
+wemake-python-styleguide = "^0.15.2"
+
+Sphinx = "^3.5.3"
+sphinx-autodoc-typehints = "^1.11.1"
+sphinx-typlog-theme = "^0.8.0"
+m2r2 = "^0.2.7"
+tomlkit = "^0.7.0"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/thepabloaguilar/floc/issues"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+norecursedirs = [
+  "*.egg",
+  ".eggs",
+  "dist",
+  "build",
+  "docs",
+  ".tox",
+  ".git",
+  "__pycache__",
+]
+testpaths = ["tests"]
+console_output_style = "progress"
+addopts = "--cov=floc --cov-report=html --cov-report=xml"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
