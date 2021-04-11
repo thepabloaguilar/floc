@@ -84,3 +84,5 @@ venv.bak/
 # Allow shared lib inside our package
 !floc/floc_go/floc_go-linux.h
 !floc/floc_go/floc_go-linux.so
+!floc/floc_go/floc_go-darwin.h
+!floc/floc_go/floc_go-darwin.so
