@@ -1,9 +1,11 @@
 import ctypes
+import sys
 from importlib import resources
 
 from floc.go_types import ApplySortingLshResult, GoSlice, SimulateResult
 
-with resources.path('floc.floc_go', 'floc_go.so') as floc_go_file:
+floc_go_so = f'floc_go-{sys.platform}.so'
+with resources.path('floc.floc_go', floc_go_so) as floc_go_file:
     FLOC_GO = ctypes.cdll.LoadLibrary(str(floc_go_file))
 
 FLOC_GO.cityHash64V103.argtypes = [ctypes.c_char_p]
