@@ -71,21 +71,27 @@ extern "C" {
 extern GoUint64 cityHash64V103(char* cStr);
 extern GoUint64 cityHash64WithSeedsV103(char* cStr, GoUint64 firstSeed, GoUint64 secondSeed);
 extern GoUint64 cityHash64WithSeedV103(char* cStr, GoUint64 seed);
-extern GoUint64 simHashString(GoSlice domainList);
+
+/* Return type for simHashString */
+struct simHashString_return {
+	GoUint64 r0;
+	char* r1;
+};
+extern struct simHashString_return simHashString(GoSlice domainList, GoUint8 kMaxNumberOfBitsInFloc);
 
 /* Return type for applySortingLsh */
 struct applySortingLsh_return {
 	GoUint64 r0;
 	char* r1;
 };
-extern struct applySortingLsh_return applySortingLsh(GoUint64 simHash, char* clusterData);
+extern struct applySortingLsh_return applySortingLsh(GoUint64 simHash, char* clusterData, GoUint8 kMaxNumberOfBitsInFloc, GoUint8 checkSensiveness);
 
 /* Return type for simulate */
 struct simulate_return {
 	GoUint64 r0;
 	char* r1;
 };
-extern struct simulate_return simulate(GoSlice hostList, char* sortingLshClusterData);
+extern struct simulate_return simulate(GoSlice hostList, char* sortingLshClusterData, GoUint8 kMaxNumberOfBitsInFloc, GoUint8 checkSensiveness);
 
 #ifdef __cplusplus
 }

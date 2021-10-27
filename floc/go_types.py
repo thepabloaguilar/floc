@@ -57,6 +57,13 @@ class SimulateResult(ctypes.Structure):
     ]
 
 
+class SimHashStringResult(ctypes.Structure):
+    _fields_ = [  # noqa: WPS120
+        ('r0', ctypes.c_uint64),
+        ('r1', ctypes.c_char_p),
+    ]
+
+
 def covert_str_list_to_go_slice(str_list: List[str]) -> GoSlice:
     casted_list = [
         ctypes.cast(

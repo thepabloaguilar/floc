@@ -14,10 +14,14 @@ class SimulateError(RuntimeError):
 def simulate(
     host_list: List[str],
     sorting_cluster_data: str = SORTING_CLUSTER_DATA,
+    k_max_numbers_of_bits_in_floc: int = 50,
+    check_sensiveness: bool = True,
 ) -> int:
     simulation_result = FLOC_GO.simulate(
         covert_str_list_to_go_slice(host_list),
         sorting_cluster_data.encode(),
+        k_max_numbers_of_bits_in_floc,
+        check_sensiveness,
     )
     if simulation_result.r1:
         raise SimulateError(simulation_result.r1.decode())
