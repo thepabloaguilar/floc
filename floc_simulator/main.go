@@ -4,6 +4,8 @@ import "C"
 import (
 	"fmt"
 
+	"github.com/shigeki/floc_simulator/packages/floc"
+
 	"golang.org/x/net/publicsuffix"
 )
 
@@ -14,31 +16,51 @@ var kMaxNumberOfBitsInFloc uint8 = 50
 //export cityHash64V103
 func cityHash64V103(cStr *C.char) uint64 {
 	str := C.GoString(cStr)
-	return CityHash64V103([]byte(str))
+	return floc.CityHash64V103([]byte(str))
 }
 
 //export cityHash64WithSeedsV103
 func cityHash64WithSeedsV103(cStr *C.char, firstSeed, secondSeed uint64) uint64 {
 	str := C.GoString(cStr)
-	return CityHash64WithSeedsV103([]byte(str), firstSeed, secondSeed)
+	return floc.CityHash64WithSeedsV103([]byte(str), firstSeed, secondSeed)
 }
 
 //export cityHash64WithSeedV103
 func cityHash64WithSeedV103(cStr *C.char, seed uint64) uint64 {
 	str := C.GoString(cStr)
-	return CityHash64WithSeedV103([]byte(str), seed)
+	return floc.CityHash64WithSeedV103([]byte(str), seed)
 }
 
 //export simHashString
-func simHashString(domainList []*C.char) uint64 {
+func simHashString(domainList []*C.char, kMaxNumberOfBitsInFloc uint8) (uint64, *C.char) {
 	domainsSlice := convertSliceCharPointerToSliceString(domainList)
-	return SimHashString(domainsSlice)
+
+	var newDomainList []string
+	for _, host := range domainsSlice {
+		eTLDPlusOne, err := publicsuffix.EffectiveTLDPlusOne(host)
+		if err != nil {
+			return 0, C.CString(err.Error())
+		}
+		newDomainList = append(newDomainList, eTLDPlusOne)
+	}
+
+	return floc.SimHashString(newDomainList, kMaxNumberOfBitsInFloc), C.CString("")
 }
 
 //export applySortingLsh
-func applySortingLsh(simHash uint64, clusterData *C.char) (uint64, *C.char) {
+func applySortingLsh(
+	simHash uint64,
+	clusterData *C.char,
+	kMaxNumberOfBitsInFloc uint8,
+	checkSensiveness bool,
+) (uint64, *C.char) {
 	clusterDataStr := C.GoString(clusterData)
-	result, err := ApplySortingLsh(simHash, []byte(clusterDataStr))
+	result, err := floc.ApplySortingLsh(
+		simHash,
+		[]byte(clusterDataStr),
+		kMaxNumberOfBitsInFloc,
+		checkSensiveness,
+	)
 
 	if err != nil {
 		return 0, C.CString(err.Error())
@@ -48,7 +70,12 @@ func applySortingLsh(simHash uint64, clusterData *C.char) (uint64, *C.char) {
 }
 
 //export simulate
-func simulate(hostList []*C.char, sortingLshClusterData *C.char) (uint64, *C.char) {
+func simulate(
+	hostList []*C.char,
+	sortingLshClusterData *C.char,
+	kMaxNumberOfBitsInFloc uint8,
+	checkSensiveness bool,
+) (uint64, *C.char) {
 	kFlocIdMinimumHistoryDomainSizeRequired := 7
 	sortingLshClusterDataStr := C.GoString(sortingLshClusterData)
 	convertedHostList := convertSliceCharPointerToSliceString(hostList)
@@ -71,9 +98,14 @@ func simulate(hostList []*C.char, sortingLshClusterData *C.char) (uint64, *C.cha
 		domainList = append(domainList, eTLDPlusOne)
 	}
 
-	simHash := SimHashString(domainList)
+	simHash := floc.SimHashString(domainList, kMaxNumberOfBitsInFloc)
 
-	cohortId, err := ApplySortingLsh(simHash, []byte(sortingLshClusterDataStr))
+	cohortId, err := floc.ApplySortingLsh(
+		simHash,
+		[]byte(sortingLshClusterDataStr),
+		kMaxNumberOfBitsInFloc,
+		checkSensiveness,
+	)
 	if err != nil {
 		return 0, C.CString(err.Error())
 	}
