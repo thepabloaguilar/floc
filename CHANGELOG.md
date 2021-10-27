@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.3.0
+
+### Misc
+
+- Updates `floc_simulator` with the latest commit from Go project
+- Adds `k_max_numbers_of_bits_in_floc` parameter to `sim_hash_string` function
+- Adds `k_max_numbers_of_bits_in_floc` and `check_sensiveness` parameters to `simulate` function
+- Adds `k_max_numbers_of_bits_in_floc` and `check_sensiveness` parameters to `apply_sorting_lsh` function
+
 ## Version 0.2.0
 
 ### Bugfixes
