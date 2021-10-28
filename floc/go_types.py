@@ -46,21 +46,21 @@ class GoInterface(ctypes.Structure):
 class ApplySortingLshResult(ctypes.Structure):
     _fields_ = [  # noqa: WPS120
         ('r0', ctypes.c_uint64),
-        ('r1', ctypes.c_char_p),
+        ('r1', ctypes.POINTER(ctypes.c_char)),
     ]
 
 
 class SimulateResult(ctypes.Structure):
     _fields_ = [  # noqa: WPS120
         ('r0', ctypes.c_uint64),
-        ('r1', ctypes.c_char_p),
+        ('r1', ctypes.POINTER(ctypes.c_char)),
     ]
 
 
 class SimHashStringResult(ctypes.Structure):
     _fields_ = [  # noqa: WPS120
         ('r0', ctypes.c_uint64),
-        ('r1', ctypes.c_char_p),
+        ('r1', ctypes.POINTER(ctypes.c_char)),
     ]
 
 
