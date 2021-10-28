@@ -38,13 +38,9 @@ jobs:
         run: |
           poetry run flake8 .
           poetry run mypy floc
+          poetry run pytest
           poetry run poetry check
           poetry run pip check
-
-      # TODO: Allow to run tests within ubuntu as well
-      - name: Run unit tests
-        if: matrix.os == 'macOS-latest'
-        run: poetry run pytest
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.14
