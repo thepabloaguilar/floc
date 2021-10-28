@@ -1,8 +1,12 @@
 package main
 
+/*
+#include <stdlib.h>
+*/
 import "C"
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/shigeki/floc_simulator/packages/floc"
 
@@ -111,6 +115,11 @@ func simulate(
 	}
 
 	return cohortId, C.CString("")
+}
+
+//export freeString
+func freeString(str *C.char) {
+	C.free(unsafe.Pointer(str))
 }
 
 func convertSliceCharPointerToSliceString(slice []*C.char) []string {
