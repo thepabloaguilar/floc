@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.3.1
+
+### Bugfixes
+
+- Makes shared lib compatible with old versions of GLIBC
+
 ## Version 0.3.0
 
 ### Misc
