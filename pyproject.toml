@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "floc"
-version = "0.3.1"
+version = "0.4.0"
 description = "A floc simulator wrapper for Python over a Go implementation"
 license = "MIT"
 authors = ["Pablo Aguilar <pablo.aguilar@fatec.sp.gov.br>"]

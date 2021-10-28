@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.4.0
+
+### Misc
+
+- Free all received strings from Go to Python to avoid unused objects in the C heap
+
 ## Version 0.3.1
 
 ### Bugfixes
