@@ -36,3 +36,6 @@ FLOC_GO.simulate.argtypes = [
     GoSlice, ctypes.c_char_p, ctypes.c_uint8, ctypes.c_bool,
 ]
 FLOC_GO.simulate.restype = SimulateResult
+
+FLOC_GO.freeString.argtypes = [ctypes.c_char_p]
+FLOC_GO.freeString.restype = None
