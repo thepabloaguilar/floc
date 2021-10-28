@@ -19,6 +19,11 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 /* Start of preamble from import "C" comments.  */
 
 
+#line 3 "main.go"
+
+#include <stdlib.h>
+
+#line 1 "cgo-generated-wrapper"
 
 
 /* End of preamble from import "C" comments.  */
@@ -92,6 +97,7 @@ struct simulate_return {
 	char* r1;
 };
 extern struct simulate_return simulate(GoSlice hostList, char* sortingLshClusterData, GoUint8 kMaxNumberOfBitsInFloc, GoUint8 checkSensiveness);
+extern void freeString(char* str);
 
 #ifdef __cplusplus
 }
