@@ -1,3 +1,5 @@
+import ctypes
+
 from floc.floc_go import FLOC_GO
 
 
@@ -17,6 +19,10 @@ def apply_sorting_lsh(
         k_max_numbers_of_bits_in_floc,
         check_sensiveness,
     )
-    if apply_sorting_result.r1:
-        raise ApplySortingLshError(apply_sorting_result.r1.decode())
+
+    error = ctypes.cast(apply_sorting_result.r1, ctypes.c_char_p).value
+    FLOC_GO.freeString(apply_sorting_result.r1)
+
+    if error:
+        raise ApplySortingLshError(error.decode())
     return apply_sorting_result.r0  # type: ignore[no-any-return]

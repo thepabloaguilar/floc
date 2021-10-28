@@ -1,3 +1,4 @@
+import ctypes
 from importlib.resources import read_text
 from typing import List
 
@@ -23,6 +24,10 @@ def simulate(
         k_max_numbers_of_bits_in_floc,
         check_sensiveness,
     )
-    if simulation_result.r1:
-        raise SimulateError(simulation_result.r1.decode())
+
+    error = ctypes.cast(simulation_result.r1, ctypes.c_char_p).value
+    FLOC_GO.freeString(simulation_result.r1)
+
+    if error:
+        raise SimulateError(error.decode())
     return simulation_result.r0  # type: ignore[no-any-return]
