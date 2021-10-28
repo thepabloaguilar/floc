@@ -67,16 +67,6 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# For some reason `autodoc_mock_imports` isn't working properly so we
-# need to mock by our hands. The reason of mocking `importlib` is to build
-# no fail inside `readthedocs`, unfortunatelly we can't read `.so` files
-# because the C libraries that doesn't live there.
-# Try to use `autodoc_mock_imports` later:
-# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_mock_imports
-mock_imports = ['importlib']
-for module in mock_imports:
-    sys.modules[module] = mock.MagicMock()
-
 master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
